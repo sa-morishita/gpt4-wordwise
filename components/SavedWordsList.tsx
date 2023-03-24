@@ -1,20 +1,20 @@
+import { WordInfo as WordInfoType } from '@/common/types';
 import { FC } from 'react';
-// import { useRecoilValue } from 'recoil'; // データベースとRecoilの状態を取得する際に使用します
+import WordInfo from './WordInfo';
 
-const SavedWordsList: FC = () => {
-	// const savedWords = useRecoilValue(savedWordsState); // Recoilの状態を取得する際に使用します
+interface Props {
+	wordInfoArray: WordInfoType[];
+}
 
+const SavedWordsList: FC<Props> = ({ wordInfoArray }) => {
 	return (
-		<ul>
-			{/* 以下のコードはデータベースとRecoilの状態が実装された後に使用します */}
-			{/* {savedWords.map((word) => (
-        <li key={word.id}>
-          {word.text} - {word.exampleSentence} - {word.translatedSentence}
-        </li>
-      ))} */}
-			{/* 仮のデータを表示するためのコードです */}
-			<li>example - This is an example sentence. - これは例文です。</li>
-		</ul>
+		<div className="mx-auto flex h-screen w-full flex-col items-center overflow-y-scroll pt-4">
+			<div className="lg:max-w-3xl">
+				{wordInfoArray.map((wordInfo, index) => {
+					return <WordInfo wordInfo={wordInfo} key={index} />;
+				})}
+			</div>
+		</div>
 	);
 };
 

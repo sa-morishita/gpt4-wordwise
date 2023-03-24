@@ -1,16 +1,16 @@
 import { FieldValue } from 'firebase/firestore';
 
-export interface Example {
+export interface SentencePair {
 	japanese: string;
 	english: string;
 }
 
-export interface Examples {
-	input: string;
-	exampleSentences: Example[];
+export interface WordInfo {
+	word: string;
+	sentencePairArray: SentencePair[];
 	explanation: string;
-	createdAt: FieldValue;
-	updatedAt: FieldValue;
+	createdAt: FieldValue | number;
+	updatedAt: FieldValue | number;
 }
 
 export interface ApiResponse {

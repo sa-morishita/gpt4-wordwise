@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<div className="flex">
 			<Sidebar />
-			<main className="w-3/4 p-4">
+			<main className="w-3/4">
 				<Toaster />
 				<Component {...pageProps} />
 			</main>

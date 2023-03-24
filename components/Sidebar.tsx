@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 const Sidebar: FC = () => {
 	return (
-		<div className="h-screen w-1/4 border-r border-gray-200 p-4">
+		<div className="h-screen w-1/4 border-r border-gray-200 bg-gray-100 p-4">
 			<h1 className="mb-4 text-xl font-bold">WordWise</h1>
 			<nav>
 				<ul>

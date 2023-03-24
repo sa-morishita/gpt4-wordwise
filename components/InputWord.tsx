@@ -1,16 +1,19 @@
 import { converter, firestore } from '@/common/firebase';
-import { ApiResponse, Example, Examples } from '@/common/types';
+import { ApiResponse, WordInfo as WordInfoType } from '@/common/types';
 import axios from 'axios';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { FC, FormEvent, KeyboardEvent, useCallback, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import ExampleSentence from './ExampleSentence';
+import WordInfo from './WordInfo';
 
 const InputWord: FC = () => {
 	const [input, setInput] = useState<string>('');
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [exampleSentences, setExampleSentences] = useState<Example[]>([]);
-	const [explanation, setExplanation] = useState<string>('');
+	const [isSaved, setIsSaved] = useState<boolean>(false);
+	const [wordInfo, setWordInfo] = useState<Omit<
+		WordInfoType,
+		'createdAt' | 'updatedAt'
+	> | null>(null);
 
 	const onInputChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,18 +36,25 @@ const InputWord: FC = () => {
 			console.log('response.data', response.data);
 			const array = await response.data.text.split('#');
 
-			const examples = array
+			const sentencePairArray = array
 				.filter((_, index) => index % 2 !== 0)
 				.map((japanese, index) => {
 					const english = array[index * 2];
 					return { japanese, english };
 				});
 
-			setExampleSentences(examples);
-			setExplanation(array[6]);
+			const data = {
+				word: input,
+				sentencePairArray,
+				explanation: array[6],
+			};
+			setWordInfo(data);
+
+			setIsSaved(false);
 
 			toast.success('GPT-4による例文が届きました！');
 			setIsLoading(false);
+			setInput('');
 		} catch (error) {
 			console.error('Error fetching example sentences:', error);
 			toast.error('エラーが発生しました。');
@@ -59,15 +69,17 @@ const InputWord: FC = () => {
 		}
 	};
 
-	const handleSave = async () => {
+	const handleSave = async (e: FormEvent) => {
+		e.preventDefault();
 		try {
-			const ref = collection(firestore, 'examples').withConverter(
-				converter<Examples>()
+			if (!wordInfo) return;
+
+			const ref = collection(firestore, 'wordInfos').withConverter(
+				converter<WordInfoType>()
 			);
 
 			const updateData = {
-				exampleSentences,
-				explanation,
+				...wordInfo,
 				createdAt: serverTimestamp(),
 				updatedAt: serverTimestamp(),
 			};
@@ -75,6 +87,7 @@ const InputWord: FC = () => {
 
 			addDoc(ref, updateData);
 			toast.success('データベースに保存しました！');
+			setIsSaved(true);
 		} catch (error) {
 			console.log(error);
 			toast.error('エラーが発生しました。');
@@ -82,49 +95,52 @@ const InputWord: FC = () => {
 	};
 
 	return (
-		<div className="mx-auto mt-4 flex flex-col items-center lg:max-w-3xl">
-			<h2 className="mb-10 text-4xl font-bold">英語を入力してください</h2>
-			<form onSubmit={handleSubmit} className="text-center">
-				<input
-					type="text"
-					value={input}
-					onChange={onInputChange}
-					onKeyDown={onKeyDown}
-					className="mb-6 rounded border border-gray-300 bg-gray-200 px-4 py-2"
-				/>
-				<button
-					type="submit"
-					disabled={isLoading}
-					className={`ml-3 rounded bg-blue-600 px-6 py-2 text-white hover:bg-blue-800 ${
-						isLoading && 'opacity-50'
-					}`}
-				>
-					送信
-				</button>
+		<div className="mx-auto flex h-screen w-full flex-col items-center overflow-y-scroll pt-4">
+			<div className="lg:max-w-3xl">
+				<h2 className="my-10 mt-10 text-center text-4xl font-bold">
+					英語を入力してください
+				</h2>
+				<form onSubmit={handleSubmit} className="text-center">
+					<input
+						type="text"
+						value={input}
+						onChange={onInputChange}
+						onKeyDown={onKeyDown}
+						className="mb-6 rounded border border-gray-300 bg-gray-200 px-4 py-2"
+					/>
+					<button
+						type="submit"
+						disabled={isLoading}
+						className={`ml-3 rounded bg-blue-600 px-6 py-2 text-white hover:bg-blue-800 ${
+							isLoading && 'opacity-50'
+						}`}
+					>
+						送信
+					</button>
+				</form>
 				{isLoading && (
-					<div className="animate-pulse text-center text-xl font-bold text-blue-600">
+					<div className="animate-pulse text-center text-xl font-bold text-green-500">
 						... 処理中 ...
 					</div>
 				)}
-				{exampleSentences.length > 0 && (
+				{wordInfo && (
 					<>
-						<ul className="mt-6 space-y-2">
-							{exampleSentences.map((example, index) => (
-								<ExampleSentence key={index} example={example} index={index} />
-							))}
-						</ul>
-						<div className="mx-4 my-8 rounded-lg border border-blue-600 p-8 text-left">
-							<p>{explanation}</p>
+						<WordInfo wordInfo={wordInfo} />
+						<div className="text-center">
+							<button
+								type="button"
+								onClick={handleSave}
+								className={`mx-auto mt-4 rounded bg-green-500 py-2 px-4 font-bold text-white hover:bg-green-700 ${
+									isSaved && 'opacity-50'
+								}`}
+								disabled={isSaved}
+							>
+								{isSaved ? '保存済み' : 'データベースに保存する'}
+							</button>
 						</div>
-						<button
-							onClick={handleSave}
-							className="mt-4 rounded bg-green-500 py-2 px-4 font-bold text-white hover:bg-green-700"
-						>
-							データベースに保存する
-						</button>
 					</>
 				)}
-			</form>
+			</div>
 		</div>
 	);
 };

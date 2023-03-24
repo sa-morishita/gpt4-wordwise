@@ -1,16 +1,20 @@
-import { Example } from '@/common/types';
-import { FC, useState } from 'react';
+import { SentencePair } from '@/common/types';
+import { FC, useEffect, useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
 
 interface Props {
-	example: Example;
+	sentencePair: SentencePair;
 	index: number;
 }
 
-const ExampleSentence: FC<Props> = ({ example, index }) => {
+const SentencePair: FC<Props> = ({ sentencePair, index }) => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
 
-	const { japanese, english } = example;
+	useEffect(() => {
+		setIsVisible(false);
+	}, [sentencePair]);
+
+	const { japanese, english } = sentencePair;
 
 	return (
 		<li className="border-b border-gray-200 py-2 text-left">
@@ -38,4 +42,4 @@ const ExampleSentence: FC<Props> = ({ example, index }) => {
 	);
 };
 
-export default ExampleSentence;
+export default SentencePair;
