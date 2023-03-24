@@ -1,6 +1,6 @@
 import { FieldValue } from 'firebase/firestore';
 
-interface Example {
+export interface Example {
 	japanese: string;
 	english: string;
 }
@@ -11,4 +11,8 @@ export interface Examples {
 	explanation: string;
 	createdAt: FieldValue;
 	updatedAt: FieldValue;
+}
+
+export interface ApiResponse {
+	text: string;
 }
