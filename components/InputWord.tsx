@@ -29,7 +29,7 @@ const InputWord: FC = () => {
 		}
 		setIsLoading(true);
 		try {
-			const response = await axios.post<ApiResponse>('/api/exampleSentences', {
+			const response = await axios.post<ApiResponse>('/api/getWordInfo', {
 				prompt: input,
 			});
 
@@ -95,7 +95,7 @@ const InputWord: FC = () => {
 	};
 
 	return (
-		<div className="mx-auto flex h-screen w-full flex-col items-center overflow-y-scroll pt-4">
+		<div className="mx-auto flex h-screen w-full flex-col items-center overflow-y-scroll py-4">
 			<div className="lg:max-w-3xl">
 				<h2 className="my-10 mt-10 text-center text-4xl font-bold">
 					英語を入力してください
