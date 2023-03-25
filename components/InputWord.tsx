@@ -95,8 +95,8 @@ const InputWord: FC = () => {
 	};
 
 	return (
-		<div className="mx-auto flex h-screen w-full items-center justify-center overflow-y-scroll">
-			<div className="lg:max-w-3xl">
+		<div className="mx-auto flex min-h-screen w-full items-center justify-center overflow-y-scroll">
+			<div className="py-4 lg:max-w-3xl">
 				<h2 className="mb-10 text-center text-2xl font-bold">
 					英単語（熟語）を送信するとGPT-4から例文が届きます
 				</h2>
