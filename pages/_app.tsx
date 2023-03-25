@@ -5,12 +5,14 @@ import { Toaster } from 'react-hot-toast';
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<div className="flex">
-			<Sidebar />
-			<main className="w-3/4">
-				<Toaster />
-				<Component {...pageProps} />
-			</main>
-		</div>
+		<>
+			<Toaster />
+			<div className="flex">
+				<Sidebar />
+				<main className="w-3/4 bg-gray-100">
+					<Component {...pageProps} />
+				</main>
+			</div>
+		</>
 	);
 }

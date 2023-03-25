@@ -21,7 +21,7 @@ const WordInfo: FC<Props> = ({ wordInfo }) => {
 					<SentencePair key={index} sentencePair={sentencePair} index={index} />
 				))}
 			</ul>
-			<div className="mx-4 my-8 rounded-lg border border-blue-600 p-8 text-left">
+			<div className="mx-4 my-8 rounded-lg border border-blue-600 bg-white p-8 text-left">
 				<p>{explanation}</p>
 			</div>
 		</div>

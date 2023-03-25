@@ -95,10 +95,10 @@ const InputWord: FC = () => {
 	};
 
 	return (
-		<div className="mx-auto flex h-screen w-full flex-col items-center overflow-y-scroll py-4">
+		<div className="mx-auto flex h-screen w-full items-center justify-center overflow-y-scroll">
 			<div className="lg:max-w-3xl">
-				<h2 className="my-10 mt-10 text-center text-4xl font-bold">
-					英語を入力してください
+				<h2 className="mb-10 text-center text-2xl font-bold">
+					英単語（熟語）を送信するとGPT-4から例文が届きます
 				</h2>
 				<form onSubmit={handleSubmit} className="text-center">
 					<input
@@ -106,7 +106,7 @@ const InputWord: FC = () => {
 						value={input}
 						onChange={onInputChange}
 						onKeyDown={onKeyDown}
-						className="mb-6 rounded border border-gray-300 bg-gray-200 px-4 py-2"
+						className="rounded border border-gray-300 bg-white px-4 py-2"
 					/>
 					<button
 						type="submit"
@@ -119,12 +119,12 @@ const InputWord: FC = () => {
 					</button>
 				</form>
 				{isLoading && (
-					<div className="animate-pulse text-center text-xl font-bold text-green-500">
+					<div className="mt-6 animate-pulse text-center text-xl font-bold text-green-500">
 						... 処理中 ...
 					</div>
 				)}
 				{wordInfo && (
-					<>
+					<div className="mt-6">
 						<WordInfo wordInfo={wordInfo} />
 						<div className="text-center">
 							<button
@@ -138,7 +138,7 @@ const InputWord: FC = () => {
 								{isSaved ? '保存済み' : 'データベースに保存する'}
 							</button>
 						</div>
-					</>
+					</div>
 				)}
 			</div>
 		</div>
