@@ -3,6 +3,7 @@ import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { converter, firestore } from '@/common/firebase';
 import { WordInfo } from '@/common/types';
 import SavedWordsList from '@/components/SavedWordsList';
+import Head from 'next/head';
 
 interface Props {
 	wordInfoArray: WordInfo[];
@@ -39,10 +40,13 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const SavedWordsPage: NextPage<Props> = ({ wordInfoArray }) => {
-	console.log(wordInfoArray);
-
 	return (
 		<div>
+			<Head>
+				<title>WordWise</title>
+				<meta name="description" content="英語学習用Webアプリケーション" />
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
 			<SavedWordsList wordInfoArray={wordInfoArray} />
 		</div>
 	);

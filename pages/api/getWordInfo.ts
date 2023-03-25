@@ -49,7 +49,7 @@ export default async function handler(
 
 		res.status(200).json({ text: resultArray.trim() });
 	} catch (error) {
-		console.error('Error generating example sentences:', error);
-		res.status(500).json({ text: 'Failed to generate example sentences.' });
+		console.error('例文の生成に失敗しました:', error);
+		res.status(500).json({ text: '例文の生成に失敗しました' });
 	}
 }
