@@ -1,6 +1,5 @@
 import { filterClassNames, judgeSelected } from '@/common/helper';
 import { FolderIcon, HomeIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
