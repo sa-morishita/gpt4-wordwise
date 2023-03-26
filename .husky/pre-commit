@@ -10,12 +10,8 @@ NC='\033[0m'
 
 echo "\n ${BOLD}Checking format, lint and types in your project before committing${NC}"
 
-# Check Prettier standards
-npm run check-format ||
-(
-    echo "\n Prettier Check ${RED}Failed${NC}. \n Run ${BLUE}npm run format${NC}, add changes and try commit again.\n";
-    false;
-)
+# Run Format
+npm run format
 
 # Check ESLint Standards
 npm run check-lint ||
