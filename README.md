@@ -1,11 +1,19 @@
+# WordWise
+
 OpneAI の API を使う練習と自分用の英語学習サービスを作りたいと思い、せっかくなので GPT-4 にサービス名考案から要件定義・フォルダ構成・コードの内容まで一通り相談しながら作りました。<br>結局コードはかなり書き換えましたが、大枠は GPT-4 産のままです。以下の README の内容も GPT-4 産です。<br>
 <br>
 …………………………………………………<br>
 <br>
 
-# WordWise
-
 WordWise は、OpenAI API を使用して英語学習をサポートする Web アプリケーションです。自分が知らない単語を入力し、例文とその翻訳を表示し、データベースに保存できます。
+
+## 技術スタック
+
+- Next.js
+- TypeScript
+- Firebase (Firestore)
+- Tailwind CSS
+- Axios
 
 ## 機能
 
