@@ -34,7 +34,10 @@ const InputWord: FC = () => {
 			});
 
 			console.log('response.data', response.data);
-			const array = await response.data.text.split('#');
+			const array = await response.data.text
+				.replace(/\d+\./g, '')
+				.replace('##', '#')
+				.split('#');
 
 			const sentencePairArray = array
 				.filter((_, index) => index % 2 !== 0)
@@ -98,8 +101,9 @@ const InputWord: FC = () => {
 		<div className="mx-auto flex min-h-screen w-full items-center justify-center overflow-y-scroll">
 			<div className="py-4 lg:max-w-3xl">
 				<h2 className="mb-10 text-center text-2xl font-bold">
-					英単語（熟語）を送信するとGPT-4から例文が届きます
+					英単語・熟語を送信するとGPT-4から例文が届きます
 				</h2>
+
 				<form onSubmit={handleSubmit} className="text-center">
 					<input
 						type="text"
