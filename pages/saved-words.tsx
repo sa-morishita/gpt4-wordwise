@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { converter, firestore } from '@/common/firebase';
 import { WordInfo } from '@/common/types';
@@ -9,7 +9,7 @@ interface Props {
 	wordInfoArray: WordInfo[];
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
 	const ref = query(
 		collection(firestore, 'wordInfos').withConverter(converter<WordInfo>()),
 		orderBy('createdAt', 'desc')
@@ -35,7 +35,6 @@ export const getStaticProps: GetStaticProps = async () => {
 		props: {
 			wordInfoArray,
 		},
-		revalidate: 60,
 	};
 };
 
