@@ -90,7 +90,19 @@ const InputWord: FC = () => {
 			console.log('updateData', updateData);
 
 			addDoc(ref, updateData);
+
+			const response = await fetch(
+				'/api/revalidate?secret=' + process.env.REVALIDATE_TOKEN
+			);
+
 			toast.success('データベースに保存しました！');
+
+			if (response.status === 200) {
+				console.log('Revalidation triggered successfully');
+			} else {
+				console.error('Error triggering revalidation');
+			}
+
 			setIsSaved(true);
 		} catch (error) {
 			console.log(error);

@@ -42,10 +42,11 @@ cd wordwise
 npm install
 ```
 
-4. 環境変数を設定します。`.env.local`ファイルをプロジェクトのルートディレクトリに作成し、以下の内容を記述します。
+4. 環境変数を設定します。`.env.local`ファイルをプロジェクトのルートディレクトリに作成し、以下の内容を記述します。ランダムな文字列は「openssl rand -base64 32」などから生成できます。
 
 ```
 OPENAI_API_KEY=あなたの OpenAI_API キー
+REVALIDATE_TOKEN=ランダムな文字列
 NEXT_PUBLIC_FIREBASE_API_KEY=あなたの Firebase_API キー
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=あなたの Firebase_AuthDomain
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=あなたの Firebase_ProjectID
