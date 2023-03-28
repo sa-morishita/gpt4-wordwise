@@ -91,9 +91,7 @@ const InputWord: FC = () => {
 
 			addDoc(ref, updateData);
 
-			const response = await fetch(
-				'/api/revalidate?secret=' + process.env.REVALIDATE_TOKEN
-			);
+			const response = await fetch('/api/revalidate');
 
 			toast.success('データベースに保存しました！');
 
