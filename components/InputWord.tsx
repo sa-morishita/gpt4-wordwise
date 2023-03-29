@@ -103,9 +103,9 @@ const InputWord: FC = () => {
 			}
 
 			setIsSaved(true);
-			setIsSaved(false);
+			setIsLoading(false);
 		} catch (error) {
-			setIsSaved(false);
+			setIsLoading(false);
 			console.log(error);
 			toast.error('エラーが発生しました。');
 		}
