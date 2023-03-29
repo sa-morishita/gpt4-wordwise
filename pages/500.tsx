@@ -1,13 +1,13 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
 
-const Custom404: NextPage = () => {
+const Custom500: NextPage = () => {
 	return (
 		<div className="grid h-screen place-content-center px-4">
 			<div className="text-center">
-				<h1 className="text-9xl font-black text-gray-400">404</h1>
+				<h1 className="text-9xl font-black text-gray-400">500</h1>
 
-				<p className="mt-4 text-gray-500">ページが見つかりませんでした。</p>
+				<p className="mt-4 text-gray-500">サーバーでエラーが発生しました。</p>
 
 				<Link
 					href="/"
@@ -20,4 +20,4 @@ const Custom404: NextPage = () => {
 	);
 };
 
-export default Custom404;
+export default Custom500;
