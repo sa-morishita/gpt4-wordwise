@@ -75,6 +75,7 @@ const InputWord: FC = () => {
 
 	const handleSave = async (e: FormEvent) => {
 		e.preventDefault();
+		setIsLoading(true);
 		try {
 			if (!wordInfo) return;
 
@@ -102,7 +103,9 @@ const InputWord: FC = () => {
 			}
 
 			setIsSaved(true);
+			setIsSaved(false);
 		} catch (error) {
+			setIsSaved(false);
 			console.log(error);
 			toast.error('エラーが発生しました。');
 		}
@@ -146,9 +149,9 @@ const InputWord: FC = () => {
 								type="button"
 								onClick={handleSave}
 								className={`mx-auto mt-4 rounded bg-green-500 py-2 px-4 font-bold text-white hover:bg-green-700 ${
-									isSaved && 'opacity-50'
+									(isSaved || isLoading) && 'opacity-50'
 								}`}
-								disabled={isSaved}
+								disabled={isSaved || isLoading}
 							>
 								{isSaved ? '保存済み' : 'データベースに保存する'}
 							</button>
