@@ -30,17 +30,28 @@ const InputWord: FC = () => {
 		}
 		setIsLoading(true);
 		try {
-			const response = await axios.post<ApiResponse>('/api/getWordInfo', {
-				prompt: input,
-			});
+			let attempt = 0;
+			let array: string[] = [];
 
-			console.log('InputWord.tsx response.data', response.data);
-			logger.info('InputWord.tsx response.data', response.data);
+			while (array.length < 7) {
+				const response = await axios.post<ApiResponse>('/api/getWordInfo', {
+					prompt: input,
+				});
 
-			const array = await response.data.text
-				.replace(/\d+\./g, '')
-				.replace('##', '#')
-				.split('#');
+				console.log('InputWord.tsx response.data', attempt, response.data);
+				logger.info('InputWord.tsx response.data', attempt, response.data);
+
+				array = await response.data.text
+					.replace(/\d+\./g, '')
+					.replace('##', '#')
+					.split('#');
+
+				attempt += 1;
+
+				if (attempt > 3) {
+					throw new Error('適切な内容の取得に失敗');
+				}
+			}
 
 			const sentencePairArray = array
 				.filter((_, index) => index % 2 !== 0)
