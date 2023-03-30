@@ -90,20 +90,20 @@ const InputWord: FC = () => {
 			};
 			console.log('updateData', updateData);
 
-			addDoc(ref, updateData);
-
-			const response = await fetch('/api/revalidate');
+			await addDoc(ref, updateData);
 
 			toast.success('データベースに保存しました！');
+
+			setIsSaved(true);
+			setIsLoading(false);
+
+			const response = await fetch('/api/revalidate');
 
 			if (response.status === 200) {
 				console.log('Revalidation triggered successfully');
 			} else {
 				console.error('Error triggering revalidation');
 			}
-
-			setIsSaved(true);
-			setIsLoading(false);
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error);
