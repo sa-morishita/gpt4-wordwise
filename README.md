@@ -46,6 +46,8 @@ npm install
 
 ```
 OPENAI_API_KEY=あなたの OpenAI_API キー
+NEXT_PUBLIC_LOGFLARE_API_KEY=あなたの Logflare のプロジェクトのAPIキー
+NEXT_PUBLIC_LOGFLARE_SOURCE_ID= あなたの Logflare のプロジェクトのSource ID
 NEXT_PUBLIC_FIREBASE_API_KEY=あなたの Firebase_API キー
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=あなたの Firebase_AuthDomain
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=あなたの Firebase_ProjectID
