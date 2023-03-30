@@ -5,6 +5,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { FC, FormEvent, KeyboardEvent, useCallback, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import WordInfo from './WordInfo';
+import logger from '@/common/logger';
 
 const InputWord: FC = () => {
 	const [input, setInput] = useState<string>('');
@@ -33,7 +34,8 @@ const InputWord: FC = () => {
 				prompt: input,
 			});
 
-			console.log('response.data', response.data);
+			console.log('InputWord.tsx response.data', response.data);
+			logger.info('InputWord.tsx response.data', response.data);
 
 			const array = await response.data.text
 				.replace(/\d+\./g, '')
@@ -88,7 +90,8 @@ const InputWord: FC = () => {
 				createdAt: serverTimestamp(),
 				updatedAt: serverTimestamp(),
 			};
-			console.log('updateData', updateData);
+			console.log('InputWord.tsx updateData', updateData);
+			logger.info('InputWord.tsx updateData', updateData);
 
 			await addDoc(ref, updateData);
 
