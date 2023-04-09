@@ -5,7 +5,7 @@ OpneAI の API を使う練習と自分用の英語学習サービスを作り�
 …………………………………………………<br>
 <br>
 
-WordWise は、OpenAI API を使用して英語学習をサポートする Web アプリケーションです。自分が知らない単語を入力し、例文とその翻訳を表示し、データベースに保存できます。
+WordWise は、OpenAI API を使用して英語学習をサポートする Web アプリケーションです（API の stream には対応していません）。自分が知らない単語を入力し、例文とその翻訳を表示し、データベースに保存できます。
 
 ## 技術スタック
 
@@ -27,13 +27,13 @@ WordWise は、OpenAI API を使用して英語学習をサポートする Web �
 1. このリポジトリをクローンします。
 
 ```
-git clone https://github.com/YOUR_USERNAME/wordwise.git
+git clone https://github.com/sa-morishita/gpt4-wordwise.git
 ```
 
 2. ディレクトリに移動します。
 
 ```
-cd wordwise
+cd gpt4-wordwise
 ```
 
 3. npm パッケージをインストールします。
